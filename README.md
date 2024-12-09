@@ -1,0 +1,1 @@
+# OracleDB_project_GameCompany_PlayerGuildModel
