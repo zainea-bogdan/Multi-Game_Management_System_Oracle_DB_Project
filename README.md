@@ -1,7 +1,7 @@
 # Multi-Game_Management_System_Oracle_DB_Project
 ---
 
-#**Project overview**
+### **Project overview**
 
 This project is a relational database designed to manage data for a game company with multiple games that share a similar structure. The database supports key game elements such as player accounts, guilds, quests, an inventory/shop system and other addional elements, while allowing for future scalability and feature expansion.
 
