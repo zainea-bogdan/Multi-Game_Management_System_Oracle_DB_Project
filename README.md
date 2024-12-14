@@ -36,11 +36,11 @@ Tools: Oracle SQL Developer
 
 # **How to use:**
 
-# **Prerequisites:**
+## **Prerequisites:**
  -  Oracle Database installed and configured.
  -  SQL Developer or any other SQL client tool for script execution
 
-# **Steps to Run:**
+## **Steps to Run:**
  - Run the script : script/creating_tables/Create_empty_tables_vers2.1.sql in order to create the empty table structure for the database
  - Run the script: script/creating_tables/MOCK_DATA_VERS1.2.sql in order to populate the tables created with mock for 1 game of this company.
  - Check out the folder: script/practice_exercises  for more exercises like:
