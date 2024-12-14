@@ -29,10 +29,8 @@ Check out the folder, on main branch, from this repository: ORACLEDB_DBdesign/OR
 
 
 # **Technologies used**
-
-Database: Oracle SQL
-Tools: Oracle SQL Developer  
-
+ - Database: Oracle SQL
+ - Tools: Oracle SQL Developer 
 
 # **How to use:**
 
