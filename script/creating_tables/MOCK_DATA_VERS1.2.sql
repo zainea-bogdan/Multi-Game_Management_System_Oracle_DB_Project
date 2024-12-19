@@ -579,6 +579,10 @@ INSERT INTO game_account_caracter VALUES(100, 185, 9035);
 INSERT INTO game_account_caracter VALUES(100, 186, 9036);
 
 
+INSERT INTO player_account VALUES(counter_player.NEXTVAL,'usertest','usertest@email.com','1resutest',TO_DATE('12 december 2019', 'DD-MM-YYYY'));
+insert into inventory VALUES(counter_inventory.NEXTVAL,30001,30001,30001,30001);
+INSERT INTO caracter VALUES(counter_caracter.NEXTVAL,'THERIGHTONE',6001,11037,5001);
+INSERT INTO game_account_caracter VALUES(101,187, 9037);
 prompt Done :)
 
 
