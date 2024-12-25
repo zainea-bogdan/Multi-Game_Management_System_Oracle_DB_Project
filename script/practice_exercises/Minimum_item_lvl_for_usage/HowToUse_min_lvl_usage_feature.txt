@@ -1,0 +1,44 @@
+### README: Minimum Level Check Feature for Game Database
+
+#### **Overview**
+This feature enforces a system where characters can only equip items if they meet the minimum level requirements. It seamlessly integrates character levels, item restrictions, and inventory management to uphold gameplay rules and maintain game balance.
+
+---
+
+### **How to Use**
+
+#### **1. Cleanup**
+Begin by removing any existing `level_caracter` table and related triggers. This ensures a clean start for implementing the new feature. If necessary, use Oracle's flashback functionality to restore the table to a previous state.
+
+#### **2. Create and Populate `level_caracter` Table**
+The `level_caracter` table serves as the core of this feature, calculating each character’s level based on accumulated quest rewards and experience points. Levels are defined using specific thresholds, ensuring accurate tracking of character progression. The table incorporates constraints like foreign keys and a composite primary key to maintain data integrity.
+
+#### **3. Assign Minimum Levels to Items**
+To add a strategic element to inventory management, items are assigned random minimum level requirements. These levels determine the eligibility of characters to equip specific items, creating variability and depth in gameplay.
+
+#### **4. Unequip Items Not Meeting Level Requirements**
+Items that do not meet a character’s level are automatically unequipped. This is achieved by:
+- Temporarily flagging invalid items in the inventory.
+- Unequipping flagged items to ensure compliance with level requirements.
+- Resetting flags to maintain a clean inventory state after the process.
+
+#### **5. Automate Enforcement with a Trigger**
+To enhance efficiency, a trigger automates the unequipping process. It monitors inventory changes and ensures items are unequipped whenever a character's level does not meet the minimum requirement. This automation eliminates manual intervention while maintaining consistent gameplay rules.
+
+---
+
+### **Restrictions/Conventions**
+
+1. **Level Calculation**:
+   - Character levels are determined using experience points and predefined ranges. Accurate quest and character data is essential for proper functionality.
+
+2. **Item Level Requirements**:
+   - Minimum levels for items are randomly assigned but can be customized to suit specific game design requirements.
+
+3. **Trigger Limitations**:
+   - The current trigger handles inventory updates and inserts but does not account for changes to existing item minimum levels.
+
+---
+
+### **Discussion**
+- **Future Improvements**: Implement a trigger to handle situations where the minimum level of an already equipped item changes. This enhancement will ensure compliance with updated item requirements and improve overall functionality.
