@@ -584,13 +584,6 @@ insert into inventory VALUES(counter_inventory.NEXTVAL,30001,30001,30001,30001);
 INSERT INTO caracter VALUES(counter_caracter.NEXTVAL,'THERIGHTONE',6001,11037,5001);
 INSERT INTO game_account_caracter VALUES(101,187, 9037);
 
-update main_quest
-SET main_quest_status =1;
-
-update side_quest
-SET side_quest_status = 1;
-
-COMMIT;
 prompt Done :)
 
 
