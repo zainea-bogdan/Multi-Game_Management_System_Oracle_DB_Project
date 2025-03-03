@@ -234,6 +234,9 @@ create table caracter (
       references clasa ( id_class )
 );
 
+alter table caracter add (
+   constraint unique_invetory_prop unique ( id_inventory )
+);
 
 create table game_account_caracter (
    id_game     integer,
