@@ -94,21 +94,39 @@ create table game_review (
    constraint chk_review_rating
       check ( game_rating >= 1
          and game_rating <= 5 )
-);
+)
+   partition by list ( id_game ) ( partition game100 values ( 100 ),
+      partition game101 values ( 101 ),
+      partition game_other values ( default )
+   );
 
 
 create table clasa (
    id_class          integer primary key,
    class_name        varchar2(50) not null unique,
-   class_description varchar2(255)
-);
+   class_description varchar2(255),
+   id_game           integer,
+   constraint fk_game_to_classes foreign key ( id_game )
+      references game ( id_game )
+)
+   partition by list ( id_game ) ( partition game100 values ( 100 ),
+      partition game101 values ( 101 ),
+      partition game_other values ( default )
+   );
 
 
 create table region (
    id_region          integer primary key,
    region_name        varchar2(100) unique not null,
-   region_description varchar2(255)
-);
+   region_description varchar2(255),
+   id_game            integer,
+   constraint fk_game_to_regions foreign key ( id_game )
+      references game ( id_game )
+)
+   partition by list ( id_game ) ( partition game100 values ( 100 ),
+      partition game101 values ( 101 ),
+      partition game_other values ( default )
+   );
 
 
 create table guild (
@@ -127,7 +145,7 @@ create table guild (
 create table character_party (
    id_party        integer primary key,
    id_guild_origin integer not null,
-   party_name      varchar2(40) not null unique,
+   party_name      varchar2(40) not null,
    party_motto     varchar2(255),
    constraint fk_party_guild_origin foreign key ( id_guild_origin )
       references guild ( id_guild )
@@ -198,15 +216,19 @@ create table item (
       references guild_merchant ( id_merchant ),
    constraint fk_item_class foreign key ( character_class_id )
       references clasa ( id_class )
-);
+)
+   partition by list ( id_game ) ( partition game100 values ( 100 ),
+      partition game101 values ( 101 ),
+      partition game_other values ( default )
+   );
 
 
 create table inventory (
    id_inventory     integer primary key,
    item_equipped    integer,
-   item_available_1 integer not null,
-   item_available_2 integer not null,
-   item_available_3 integer not null,
+   item_available_1 integer,
+   item_available_2 integer,
+   item_available_3 integer,
    constraint chk_equipped_item
       check ( item_equipped in ( item_available_1,
                                  item_available_2,
