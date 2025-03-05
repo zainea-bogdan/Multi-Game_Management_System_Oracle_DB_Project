@@ -44,3 +44,62 @@
 --    dbms_output.put_line('nr itemelor care sunt peste 9000 este de: ' || v_item_price);
 -- end;
 
+
+
+--    set SERVEROUTPUT ON
+-- declare
+--    v_number number := 5;
+--    v_name   varchar2(30);
+-- begin
+--    select caracter_name
+--      into v_name
+--      from caracter
+--     where id_caracter = 9001;
+--    if
+--       v_number < 10
+--       and v_name = 'Carol'
+--    then
+--       dbms_output.put_line('HI');
+--       dbms_output.put_line('I am smaller than 10');
+--    elsif v_number < 20 then
+--       dbms_output.put_line('I am smaller than 20');
+--    elsif v_number < 30 then
+--       dbms_output.put_line('I am smaller than 30');
+--    else
+--       if v_number is null then
+--          dbms_output.put_line('The number is null..');
+--       else
+--          dbms_output.put_line('I am equal or greater than 30');
+--       end if;
+--    end if;
+--     dbms_output.put_line('valoare nume este: ' || v_name);
+-- end;
+
+
+--    set SERVEROUTPUT ON
+-- ACCEPT v_test prompt 'baga tata nr max de iteratii pe care il vrei: '
+-- declare
+--    v_test  number(3);
+--    counter number(3);
+-- begin
+--    v_test := &v_test;
+--    dbms_output.put_line('numarul de iteratii ales este de: ' || v_test);
+--    if v_test = 5 then
+--       counter := v_test;
+--     --   loop
+--     --      dbms_output.put_line('HAHAHAHHHAHAH NICE CHOICE');
+--     --      counter := counter - 1;
+--     --      exit when counter = 0;
+--     --   end loop;
+--     --   while counter >= 0 loop
+--     --      dbms_output.put_line('HAHAHAHHHAHAH NICE CHOICE');
+--     --      counter := counter - 1;
+--     --      exit when counter = 0;
+--     --   end loop;
+--       for counter in reverse 1..5 loop
+--          dbms_output.put_line('HAHAHAHHHAHAH NICE CHOICE');
+--       end loop;
+--    else
+--       dbms_output.put_line('chiar ai pus nr asta:???????? ' || v_test);
+--    end if;
+-- end;
