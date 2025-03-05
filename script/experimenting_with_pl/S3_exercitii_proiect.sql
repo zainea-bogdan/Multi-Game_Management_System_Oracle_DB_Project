@@ -182,9 +182,9 @@ se iau ca parametru de intrare email si parola
 se extrage id si numele contului din player account 
 si se verifica parola*/
 
+   
+-- pentru a testa foloseste mail user1@email.com si 1resu ca parola
    set serveroutput on
-   accept v_tried_mail prompt 'introduceti va rog mailul: ';
-   accept v_tried_password prompt 'introduceti va rog parola';
 declare
    v_real_mail          player_account.player_email%type;
    v_real_password      player_account.player_password%type;
@@ -203,15 +203,15 @@ begin
       v_real_password
      from player_account
     where id_player = 151;
-   v_tried_mail := &v_tried_mail;
-   v_tried_password := &v_tried_password;
+   v_tried_mail := '&v_tried_mail';
+   v_tried_password := '&v_tried_password';
    counter := 1;
    flag := 0;
    while counter <= 3 loop
       if ( v_tried_mail = v_real_mail ) then
          if ( v_tried_password = v_real_password ) then
-            dbms_output.put_line('bine ai revenit' || v_nume_player_cautat);
             flag := 1;
+            exit;
          else
             dbms_output.put_line('wrong password');
          end if;
@@ -224,6 +224,8 @@ begin
    if ( flag = 0 ) then
       dbms_output.put_line('account blocked');
    else
-      dbms_output.put_line('bine ai venit' || v_nume_player_cautat);
+      dbms_output.put_line('bine ai revenit '
+                           || v_nume_player_cautat
+                           || '!');
    end if;
 end;
