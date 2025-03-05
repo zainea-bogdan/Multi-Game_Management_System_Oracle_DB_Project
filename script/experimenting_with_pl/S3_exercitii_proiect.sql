@@ -229,3 +229,23 @@ begin
                            || '!');
    end if;
 end;
+
+
+/*Exercitiu 3: 
+adding 2 new classes, without using inser in the clasic way*/
+
+select *
+  from genre;
+
+savepoint before_test;
+begin
+   for i in 1..2 loop
+      insert into genre (
+         id_genre,
+         genre_name
+      ) values ( counter_genre.nextval,
+                 'newclass#' || i );
+   end loop;
+end;
+
+rollback to savepoint before_test;
