@@ -185,6 +185,8 @@ si se verifica parola*/
    
 -- pentru a testa foloseste mail user1@email.com si 1resu ca parola
    set serveroutput on
+accept tried_mail prompt 'baga mail'
+accept tried_password prompt 'baga parola'
 declare
    v_real_mail          player_account.player_email%type;
    v_real_password      player_account.player_password%type;
@@ -203,8 +205,8 @@ begin
       v_real_password
      from player_account
     where id_player = 151;
-   v_tried_mail := '&v_tried_mail';
-   v_tried_password := '&v_tried_password';
+   v_tried_mail := '&tried_mail';
+   v_tried_password := '&tried_password';
    counter := 1;
    flag := 0;
    while counter <= 3 loop
