@@ -178,8 +178,8 @@ end;
 
 /*Exercise 2:
 sa zicem ca un om vrea sa se conecteze la player accounts sau, daca introduce parola gresita de mai mult de trei ori sa se arunce o avertizare
-se iau ca parametru de intrare email si parola 
-se extrage id si numele contului din player account 
+se ia ca parametru de intrare id-ul playerului 
+se extrage mail si parola contului din player account 
 si se verifica parola*/
 
    
@@ -234,7 +234,7 @@ end;
 
 
 /*Exercitiu 3: 
-adding 2 new classes, without using inser in the clasic way*/
+adding 2 new classes by using plsql */
 
 select *
   from genre;

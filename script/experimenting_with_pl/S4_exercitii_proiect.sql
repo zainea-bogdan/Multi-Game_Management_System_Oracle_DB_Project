@@ -1,7 +1,7 @@
 /*=============CURSORI IMPLICITI DIN CADRUL PLSQL==========================================*/
 
 /*EXERCITIUL 1*/
-/*CU OCAZIA ZILEI DE NASTER:) A GUILDULUI 5302 (de gasit prin query), s-a decis ca toate main questurile asociate acestui guild sa aiba double points de acum. Sa se realizeze un update folosind plsql si cursor implicit */
+/*CU OCAZIA ZILEI DE NASTERE:) A GUILDULUI 5302 (de gasit prin query), s-a decis ca toate main questurile asociate acestui guild sa aiba double points de acum. Sa se realizeze un update folosind plsql si cursor implicit */
 
 /*m-am luat dupa data ca sa nu fie usor:)*/
 select id_guild
