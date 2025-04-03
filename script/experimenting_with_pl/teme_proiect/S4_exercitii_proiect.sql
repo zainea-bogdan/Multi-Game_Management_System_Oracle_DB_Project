@@ -66,12 +66,22 @@ begin
       main_quest_status = 1
     where main_quest_name = 'The Molten Trail';
 
+   if ( sql%rowcount = 1 ) then
+      dbms_output.put_line('S-a facut update cu succes!');
+   else
+      dbms_output.put_line('ai updatat mai multe linii');
+   end if;
+
+
    insert into ex_missions values chosen_mission;
 
    delete from main_quest
     where main_quest_name = 'The Molten Trail'
       and main_quest_status = 1;
 
+exception
+   when no_data_found then
+      dbms_output.put_line('deja ai sters');
 end;
 
 select *
