@@ -145,7 +145,63 @@ exception
 end;
 
 /*exercitiul 2*/
+/* TASK: Update rewards for specific guilds based on account age conditions. */
 
+   set SERVEROUTPUT on;
+
+declare begin
+   for v in (
+      select c.id_character_party nume_party
+        from player_account p
+       inner join game_account_caracter gac
+      on p.id_player = gac.id_player
+       inner join caracter c
+      on gac.id_caracter = c.id_caracter
+       inner join character_party cp
+      on c.id_character_party = cp.id_party
+       inner join guild g
+      on cp.id_guild_origin = g.id_guild
+       where id_game = 100
+         and months_between(
+         p.account_creation_date,
+         g.guild_birthday
+      ) >= 250
+       group by c.id_character_party
+   ) loop
+      update main_quest
+         set
+         main_quest_reward = main_quest_reward * 1.1
+       where id_party = v.nume_party;
+
+
+   end loop;
+
+   dbms_output.put_line('numarul de questuri updatate: ' || sql%rowcount);
+end;
+
+
+
+update main_quest
+   set
+   main_quest_reward = main_quest_reward * 1.1
+ where id_party in (
+   select c.id_character_party
+     from player_account p
+    inner join game_account_caracter gac
+   on p.id_player = gac.id_player
+    inner join caracter c
+   on gac.id_caracter = c.id_caracter
+    inner join character_party cp
+   on c.id_character_party = cp.id_party
+    inner join guild g
+   on cp.id_guild_origin = g.id_guild
+    where id_game = 100
+      and months_between(
+      p.account_creation_date,
+      g.guild_birthday
+   ) >= 250
+    group by c.id_character_party
+);
 
 
 
