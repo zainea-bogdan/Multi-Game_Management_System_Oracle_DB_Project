@@ -213,6 +213,3 @@ begin
 end;
 
 execute lvl_procedure;
-
-select *
-  from character_party;
