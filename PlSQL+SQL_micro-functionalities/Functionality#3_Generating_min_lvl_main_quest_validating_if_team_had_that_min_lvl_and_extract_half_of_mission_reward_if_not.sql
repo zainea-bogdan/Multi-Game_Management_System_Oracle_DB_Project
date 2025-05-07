@@ -70,6 +70,7 @@ begin
          if (
             ( ech.id_party = mis.id_party )
             and ( ech.lvl_echipa < mis.minimum_level_team )
+            and ( mis.main_quest_status = 1 )
          ) then
             update main_quest
                set
