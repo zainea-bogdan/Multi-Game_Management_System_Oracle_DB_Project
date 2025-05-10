@@ -1,7 +1,10 @@
-/*Functionality #3
-    - 1 procedura ca imi genereaza random min lvl minim in functie de avg lvl echipelor la momentul rularii
-    - 1 procedura care verifica daca echipa a facut un misiune si avea min lvl necesar si daca nu sa marcheze misiunea respectiva cu 0 si scade din coins la echipa jumatate din valoarea acelei misiuni, ca un fel de indatorare
-    - 
+/* Functionality #3 */
+/* Core concept: Ensure that main quests enforce a minimum level requirement for teams. If the requirement isn't met:
+   - A procedure calculates and assigns a minimum level to each quest, based on the current average team level.
+   - A procedure checks if any team completed a quest without meeting the required level.
+     If so:
+       - The quest completion is revoked.
+       - Half of the quest's coin reward is deducted from the team's total coins.
 */
 
 create or replace procedure generate_min_lvl_main_quest as
@@ -92,3 +95,105 @@ end;
 rollback;
 execute DEBIFARE_MISIUNE_DACA_NU_ECHIPA_LVL_MIN;
 commit;
+
+/* versiunea cu package*/
+drop procedure generate_min_lvl_main_quest;
+drop procedure debifare_misiune_daca_nu_echipa_lvl_min;
+
+
+create or replace package quest_min_level_validation_pkg as
+   procedure generate_min_lvl_main_quest;
+   procedure debifare_misiune_daca_nu_echipa_lvl_min;
+end;
+
+
+create or replace package body quest_min_level_validation_pkg is
+
+   /* Procedure: Assigns a random minimum level requirement to each main quest.
+      - Quests with even IDs get a minimum level below average.
+      - Quests with odd IDs get a minimum level above average.
+   */
+   procedure generate_min_lvl_main_quest as
+      v_avg_lvl number;
+   begin
+      select avg(lvl_echipa)
+        into v_avg_lvl
+        from character_party;
+
+      update main_quest
+         set
+         minimum_level_team = v_avg_lvl - dbms_random.value(
+            1,
+            v_avg_lvl / 2
+         )
+       where mod(
+         id_main_quest,
+         2
+      ) = 0;
+
+      update main_quest
+         set
+         minimum_level_team = v_avg_lvl + dbms_random.value(
+            1,
+            v_avg_lvl / 2
+         )
+       where mod(
+         id_main_quest,
+         2
+      ) != 0;
+   end;
+
+   /* Procedure: Revokes quest completion if the team's level was below the required minimum.
+      - Sets quest status to 0.
+      - Deducts half of the quest reward from the team's total coins.
+   */
+   procedure debifare_misiune_daca_nu_echipa_lvl_min as
+      cursor echipe is
+      select id_party,
+             lvl_echipa
+        from character_party;
+
+      cursor misiuni_principale is
+      select id_main_quest,
+             id_party,
+             minimum_level_team,
+             main_quest_status
+        from main_quest;
+   begin
+      for ech in echipe loop
+         for mis in misiuni_principale loop
+            if
+               ( ech.id_party = mis.id_party )
+               and ( ech.lvl_echipa < mis.minimum_level_team )
+               and ( mis.main_quest_status = 1 )
+            then
+               update main_quest
+                  set
+                  main_quest_status = 0
+                where id_main_quest = mis.id_main_quest;
+
+               update character_party
+                  set
+                  coins_echipa = coins_echipa - (
+                     select main_quest_reward / 2
+                       from main_quest
+                      where id_main_quest = mis.id_main_quest
+                  )
+                where id_party = ech.id_party;
+            end if;
+         end loop;
+      end loop;
+   end;
+
+end;
+
+
+execute quest_min_level_validation_pkg.generate_min_lvl_main_quest;
+execute quest_min_level_validation_pkg.debifare_misiune_daca_nu_echipa_lvl_min;
+commit;
+
+select *
+  from main_quest
+ order by minimum_level_team;
+select *
+  from character_party;

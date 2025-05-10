@@ -1,15 +1,18 @@
-/*Functionality#1*/
-   /*Idee de baza: vreau sa contruiesc un pachet de proceduri si functii care fac urmatoarele chestii:
-   - 1 procedura care imi creeaza o coloana de dificultate a misiunilor(insa verifica si daca coloana exista in prealabil) si care imi seteaza aleator, dificultatea unui main quest 
-   - 1 procedura care imi seteaza aleator, pe baza unei formule, valoarea experientei pe care o castiga echipa in urma misiunii
-   - 1 procedura care imi seteaza aleator, pe baza unei formule, valoarea banutilor(coins), castigare de echipa in urma completarii misiunii
-   - 1 functie care le apeleaza pe toate si afiseaza cum s-au manifestat:)
-   - Dupa testarea lor individuala ca obiecte separate, voi pune sa fie sterse, si apoi creez pachet cu ele*/
-
-
+/* Functionality#1 */
+/* Core concept: Building a package of procedures and functions that perform the following:
+   - A procedure that creates a "difficulty" column for main quests (if not already present) and assigns random difficulty values.
+   - A procedure that randomly assigns experience points to the team based on a formula that factors in quest difficulty and region.
+   - A procedure that randomly assigns coin rewards to the team using a similar formula.
+   - A procedure that calls the above three procedures and displays the results.
+   - After verifying functionality separately, drop and re-create them in a package for reuse and organization.
+*/
 
    set SERVEROUTPUT on;
-   /*procedura care imi creeaza o coloana de dificultate a misiunilor(si verifica prima data daca exista si o creeaza*/
+
+/* Procedure: Checks if "difficulty" column exists in the "main_quest" table.
+   - If it exists: assigns random difficulty values for quests based on region.
+   - If it doesn't exist: creates the column and outputs a message asking for re-execution.
+*/
 create or replace procedure validare_existenta_coloana_dificultate_si_alocare_valori as
    v_verifica number;
    no_column_dificultate exception;
@@ -20,32 +23,21 @@ begin
     where table_name = upper('main_quest')
       and column_name = upper('dificultate');
 
-    --daca exista coloana facem mai departe update-ul random de dificultate a misiunilor
    if v_verifica != 0 then
-      --setare pentru regiune 5101
+      -- Assign random difficulty for region 5101
       execute immediate 'update main_quest
-         set
-         dificultate = round(dbms_random.value(
-            1,
-            10
-         ))
-       where id_region = 5101';
-       --setare pentru regiune 5102
+         set dificultate = round(dbms_random.value(1, 10))
+         where id_region = 5101';
+
+      -- Assign random difficulty for region 5102
       execute immediate 'update main_quest
-         set
-         dificultate = round(dbms_random.value(
-            1,
-            10
-         ))
-       where id_region = 5102';
-        --setare pentru regiune 5103
+         set dificultate = round(dbms_random.value(1, 10))
+         where id_region = 5102';
+
+      -- Assign random difficulty for region 5103
       execute immediate 'update main_quest
-         set
-         dificultate =round(dbms_random.value(
-            1,
-            10
-         ))
-       where id_region = 5103';
+         set dificultate = round(dbms_random.value(1, 10))
+         where id_region = 5103';
    else
       raise no_column_dificultate;
    end if;
@@ -53,14 +45,17 @@ begin
 exception
    when no_column_dificultate then
       execute immediate 'ALTER TABLE main_quest ADD (dificultate integer DEFAULT 0 not null)';
-      dbms_output.put_line('S-a creat coloana de dificultate. Te rog sa mai rulezi o data aceasta procedura pentru alocare de valori in noua coloana creata'
-      );
+      dbms_output.put_line('Difficulty column created. Please rerun the procedure to assign values.');
 end;
 
-/* - ESTE NECESAR SA FIE RULATA DE CEL PUTIN DE DOUA ORI PRIMA PROCEDURA PENTRU CREEAREA COLOANEI DE DIFICULTATE SI POPULAREA EI 
-- mai jos este procedura care imi seteaza aleator, pe baza unei formule, valoarea experientei pe care o castiga echipa in urma misiunii*/
+/* NOTE: The above procedure must be executed at least twice to ensure
+   1. The "difficulty" column is created.
+   2. The column is then populated with values. */
 savepoint before_exp_update;
 
+/* Procedure: Calculates and updates the experience points earned by the team.
+   - Formula is based on difficulty and region-specific bonuses.
+*/
 create or replace procedure generare_random_experience as
 begin
    update main_quest
@@ -78,10 +73,9 @@ begin
       ) * 0.3);
 end;
 
-
-
-/*procedura care imi seteaza aleator, pe baza unei formule, valoarea banutilor(coins), castigare de echipa in urma completarii misiunii*/
-
+/* Procedure: Calculates and updates the coin reward earned by the team.
+   - Formula is similar to the experience calculation and also based on difficulty and region.
+*/
 create or replace procedure generare_random_reward_coins as
 begin
    update main_quest
@@ -99,8 +93,9 @@ begin
       ) * 0.3);
 end;
 
-/*functie care imi apeleaza toate cele 3 proceduri de mai sus*/
-
+/* Procedure: Executes all three core procedures (difficulty, experience, reward),
+   then outputs the main quest details with their assigned values.
+*/
 create or replace procedure generare_si_afisare_exp_reward_dificultate as
    cursor c is
    (
@@ -117,15 +112,19 @@ begin
    for v in c loop
       dbms_output.put_line('id_misiune: '
                            || v.id_main_quest
-                           || '|  dificultate: '
+                           || ' |  difficulty: '
                            || v.dificultate
-                           || '|  exp: '
+                           || ' |  exp: '
                            || v.main_quest_experience_points
-                           || '|  coins: '
+                           || ' |  coins: '
                            || v.main_quest_reward);
    end loop;
 end;
 
+/* Function: Calculates the final value based on difficulty and region.
+   - Used in experience and reward procedures.
+   - Encapsulates business logic for better reusability.
+*/
 create or replace function formula_calc_based_on_dificulatate_si_regiune (
    dificultate integer,
    id_region   integer
@@ -146,14 +145,14 @@ begin
    return valoare;
 end;
 
-/*LE DAU DROP CA SA LE POT ADAUGA MAI JOS IN PACHETE*/
+/* Dropping standalone procedures and function to repackage them below */
 drop procedure validare_existenta_coloana_dificultate_si_alocare_valori;
 drop procedure generare_random_experience;
 drop procedure generare_random_reward_coins;
 drop procedure generare_si_afisare_exp_reward_dificultate;
 drop function formula_calc_based_on_dificulatate_si_regiune;
 
-/*CREATING THE PACKAGE WITH ALL THIS PROCEDURES AND Formula FUNCTION: */
+/* Creating the package containing all previously defined logic */
 create or replace package generating_random_dificulty_experience_rewards_per_main_quest as
    procedure validare_existenta_coloana_dificultate_si_alocare_valori;
    procedure generare_random_experience;
@@ -166,7 +165,8 @@ create or replace package generating_random_dificulty_experience_rewards_per_mai
 end;
 
 create or replace package body generating_random_dificulty_experience_rewards_per_main_quest is
-   /*PRIMA PROCEDURA*/
+
+   /* Procedure: Same as above, now in package */
    procedure validare_existenta_coloana_dificultate_si_alocare_valori as
       v_verifica number;
       no_column_dificultate exception;
@@ -177,32 +177,16 @@ create or replace package body generating_random_dificulty_experience_rewards_pe
        where table_name = upper('main_quest')
          and column_name = upper('dificultate');
 
-    --daca exista coloana facem mai departe update-ul random de dificultate a misiunilor
       if v_verifica != 0 then
-      --setare pentru regiune 5101
          execute immediate 'update main_quest
-         set
-         dificultate = round(dbms_random.value(
-            1,
-            10
-         ))
-       where id_region = 5101';
-       --setare pentru regiune 5102
+         set dificultate = round(dbms_random.value(1, 10))
+         where id_region = 5101';
          execute immediate 'update main_quest
-         set
-         dificultate = round(dbms_random.value(
-            1,
-            10
-         ))
-       where id_region = 5102';
-        --setare pentru regiune 5103
+         set dificultate = round(dbms_random.value(1, 10))
+         where id_region = 5102';
          execute immediate 'update main_quest
-         set
-         dificultate =round(dbms_random.value(
-            1,
-            10
-         ))
-       where id_region = 5103';
+         set dificultate = round(dbms_random.value(1, 10))
+         where id_region = 5103';
       else
          raise no_column_dificultate;
       end if;
@@ -210,13 +194,11 @@ create or replace package body generating_random_dificulty_experience_rewards_pe
    exception
       when no_column_dificultate then
          execute immediate 'ALTER TABLE main_quest ADD (dificultate integer DEFAULT 0 not null)';
-         dbms_output.put_line('S-a creat coloana de dificultate. Te rog sa mai rulezi o data aceasta procedura pentru alocare de valori in noua coloana creata'
-         );
+         dbms_output.put_line('Difficulty column created. Please rerun the procedure to assign values.');
          validare_existenta_coloana_dificultate_si_alocare_valori;
    end;
 
-   /*A DOUA PROCEDURA*/
-
+   /* Procedure: Experience assignment */
    procedure generare_random_experience as
    begin
       update main_quest
@@ -234,9 +216,7 @@ create or replace package body generating_random_dificulty_experience_rewards_pe
          ) * 0.3);
    end;
 
-
-    /*A TREIA PROCEDURA*/
-
+   /* Procedure: Coin reward assignment */
    procedure generare_random_reward_coins as
    begin
       update main_quest
@@ -253,7 +233,8 @@ create or replace package body generating_random_dificulty_experience_rewards_pe
             end
          ) * 0.3);
    end;
-    /*A PATRA PROCEDURA: */
+
+   /* Procedure: Executes full update and displays results */
    procedure generare_si_afisare_exp_reward_dificultate as
       cursor c is
       (
@@ -270,16 +251,16 @@ create or replace package body generating_random_dificulty_experience_rewards_pe
       for v in c loop
          dbms_output.put_line('id_misiune: '
                               || v.id_main_quest
-                              || '|  dificultate: '
+                              || ' |  difficulty: '
                               || v.dificultate
-                              || '|  exp: '
+                              || ' |  exp: '
                               || v.main_quest_experience_points
-                              || '|  coins: '
+                              || ' |  coins: '
                               || v.main_quest_reward);
       end loop;
    end;
 
-    /*SI FUNCTIA */
+   /* Function: Returns calculated value based on difficulty and region */
    function formula_calc_based_on_dificulatate_si_regiune (
       dificultate integer,
       id_region   integer
@@ -299,10 +280,13 @@ create or replace package body generating_random_dificulty_experience_rewards_pe
       ) * 0.3);
       return valoare;
    end;
+
 end;
 
+-- Execute one of the procedures from the package to test
 execute generating_random_dificulty_experience_rewards_per_main_quest.generare_random_experience;
 commit;
 
+-- View the results
 select *
   from main_quest;
