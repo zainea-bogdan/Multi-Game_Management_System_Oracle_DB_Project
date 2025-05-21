@@ -234,7 +234,7 @@ create or replace package team_progression_package as
    function calculare_level (
       experience integer
    ) return integer;
-end;
+end team_progression_package;
 
 create or replace package body team_progression_package is
 
@@ -416,7 +416,7 @@ create or replace package body team_progression_package is
       end loop;
    end;
 
-end;
+end team_progression_package;
 
 execute team_progression_package.random_completare_main_quests;
 execute team_progression_package.validare_coloane_exp_coins_echipe;
