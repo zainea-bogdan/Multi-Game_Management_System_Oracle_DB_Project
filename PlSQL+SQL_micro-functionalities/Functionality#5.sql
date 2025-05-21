@@ -57,11 +57,3 @@ begin
 
    return v_id;
 end;
-
-
-create or replace procedure validare_iteme_conform_clasa as
-begin
-   
-end;
-
-select * from caracter;
