@@ -160,6 +160,12 @@ drop procedure check_item_class_restriction;
 create or replace package inventory_package as
    procedure random_generating_items_in_player_inventory;
    function random_gen_item_id return number;
+   function get_player_class (
+      p_id_inventory caracter.id_inventory%type
+   ) return integer;
+   function get_charact_id_from_item_class (
+      p_id_item item.id_item%type
+   ) return integer;
    procedure check_item_class_restriction;
 end inventory_package;
 /

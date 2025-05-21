@@ -104,7 +104,7 @@ drop procedure debifare_misiune_daca_nu_echipa_lvl_min;
 create or replace package quest_min_level_validation_pkg as
    procedure generate_min_lvl_main_quest;
    procedure debifare_misiune_daca_nu_echipa_lvl_min;
-end;
+end quest_min_level_validation_pkg;
 
 
 create or replace package body quest_min_level_validation_pkg is
@@ -185,7 +185,7 @@ create or replace package body quest_min_level_validation_pkg is
       end loop;
    end;
 
-end;
+end quest_min_level_validation_pkg;
 
 
 execute quest_min_level_validation_pkg.generate_min_lvl_main_quest;

@@ -80,8 +80,7 @@ exception
    when no_data_found then
       v_guild_tax := 0;
 end;
--- rollback;
--- execute COLECTARE_TAXE_DACA_E_CAZUL ;
+
 
 /*versiunea cu package*/
 
@@ -92,13 +91,14 @@ drop procedure validare_coloana_guild_taxes_collected_total;
 drop procedure colectare_taxe_daca_e_cazul;
 
 
-create or replace package guild_tax_collection_pkg as
+
+create or replace package guild_tax_package as
    procedure validare_coloana_guild_taxes_collected_total;
    procedure colectare_taxe_daca_e_cazul;
-end;
+end guild_tax_package;
+/
 
-
-create or replace package body guild_tax_collection_pkg is
+create or replace package body guild_tax_package is
 
    /* Procedure: Validates if the "taxes_collected_total" column exists in the "guild" table.
       - If it does not exist, creates the column with default value 0 (not null).
@@ -175,7 +175,7 @@ create or replace package body guild_tax_collection_pkg is
       end loop;
    end;
 
-end;
+end guild_tax_package;
 
 execute guild_tax_collection_pkg.validare_coloana_guild_taxes_collected_total;
 execute guild_tax_collection_pkg.colectare_taxe_daca_e_cazul;
