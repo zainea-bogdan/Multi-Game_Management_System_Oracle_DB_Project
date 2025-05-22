@@ -66,7 +66,7 @@ First of all, let's checkout the database design diagrams.
 - <details>
     <summary>Expected Results:</summary>
     <br>
-    <img src="Media_Functionalities_Results_PLSQL/difficulty_column_gen.png" alt="" width="300">
-    <img src="Media_Functionalities_Results_PLSQL/random_values_for_difficulty.png" alt="" width="300">
-    <img src="Media_Functionalities_Results_PLSQL/running_through_pkg_exp_coin_lvl_gen.png" alt="" width="300">
+    <img src="Media_Functionalities_Results_PLSQL/difficulty_column_gen.png" alt="" width="600">
+    <img src="Media_Functionalities_Results_PLSQL/random_values_for_difficulty.png" alt="" width="600">
+    <img src="Media_Functionalities_Results_PLSQL/running_through_pkg_exp_coin_lvl_gen.png" alt="" width="600">
   </details>
