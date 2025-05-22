@@ -53,7 +53,7 @@ First of all, let's checkout the database design diagrams.
 > **Task description:**  
 > The core concept involves building a package that encapsulates the following procedures and functions:
 >
-> - A procedure that creates a "difficulty" column for main quests (if not already present) and assigns random difficulty values.
+> - A procedure that creates a `difficulty` column for main quests (if not already present) and assigns random difficulty values.
 > - A procedure that assigns experience points to the team based on a formula that factors in quest difficulty and region.
 > - A procedure that assigns coin rewards to the team using a similar formula.
 > - A procedure that calls the above three procedures and displays the results.
@@ -61,7 +61,7 @@ First of all, let's checkout the database design diagrams.
 > - After verifying functionality's procedures and function separately, I dropped and re-created them in a package for reuse and organization.
 >   -!!! Important: first of all run at least once the first procedure before creating the package cause otherwise, it won't work
 
-- Source code: [click here](PlSQL+SQL_micro-functionalities\Functionality_01_Difficulty_column_and_generating_random_exp_coins.sql)
+- Source code: [click here](PlSQL+SQL_micro-functionalities/Functionality_01_Difficulty_column_and_generating_random_exp_coins.sql)
 
 - <details>
     <summary>Expected Results:</summary>
@@ -70,6 +70,8 @@ First of all, let's checkout the database design diagrams.
     <img src="Media_Functionalities_Results_PLSQL/random_values_for_difficulty.png" alt="" width="600">
     <img src="Media_Functionalities_Results_PLSQL/running_through_pkg_exp_coin_lvl_gen.png" alt="" width="600">
   </details>
+
+---
 
 ### **Functionality #2: Setting completion status of main quest and calculates coin rewards,experience and level for each team**
 
@@ -88,7 +90,7 @@ First of all, let's checkout the database design diagrams.
 > - !! Important make sure you went at least once throguh the functionality 1 in order to be able to work with this one, just to be sure :)
 > - VERY IMPORTANT FIRST OF ALL RUN THE FIRST 2 PROCEDURE INDEPENDENTLY TO GET THE COLUMNS AND THAT RANDOM VALUES, ONLY AFTER THAT DROP THE SPECIFIC PROCEDURES AND BUILD THE PACKAGE
 
-- Source code: [click here](PlSQL+SQL_micro-functionalities\Functionality_02_Setting_completion_status_calculate_team_exp_coins_lvl.sql)
+- Source code: [click here](PlSQL+SQL_micro-functionalities/Functionality_02_Setting_completion_status_calculate_team_exp_coins_lvl.sql)
 
 - <details>
     <summary>Expected Results:</summary>
