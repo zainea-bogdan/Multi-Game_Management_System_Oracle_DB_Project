@@ -1,24 +1,35 @@
-/*Functionality #2*/
-/*Idee de baza: vreau sa contruiesc un pachet de proceduri si functii care fac urmatoarele chestii:
-- 1 procedura care imi da update pe coloaan cu status misiune care imi zice daca misiunea este teminata(1) sau neincheiata(0)
-- 1 procedura ce verifica si creeaza coloana de reward, exp per echipa si plus o coloana de level unde se calculeaza pe baza unei formule lvl echipei in functie de exp 
-- 1 procedura care imi calculeaza exp si coins per echipa si imi stocheaza fiecare valoare intr-o structura de date si apoi din structura de date eu iau si pun in tabela :)
-- */
+/* Functionality #2: 
+Core concept: Building a package of procedures and functions that perform the following:
+- A procedure that updates the mission status column to mark quests as completed (1) or incomplete (0),randomly.
+- A procedure that verifies and creates (if necessary) three columns in the `character_party` table:
+    1. `exp_echipa` (team experience)
+    2. `coins_echipa` (team coins)
+    3. `lvl_echipa` (team level), which is calculated based on total experience.
+- A procedure that calculates experience per team, stores results in a indexed table, and updates the database accordingly.
+- A similar procedure that calculates and stores coin rewards per team.
+- A function that calculates the team level based on the total experience.
+- Finally, all logic is encapsulated into a package for reuse and modularity.
+*/
 
 
    set SERVEROUTPUT on;
-   /*procedura care imi da update pe coloaan cu status misiune */
+
 create or replace procedure random_completare_main_quests as
 begin
    update main_quest
       set
-      main_quest_status = round(dbms_random.value(
+      main_quest_status = trunc(dbms_random.value(
          0,
-         1
+         2
       ));
 end;
 
-/*functie de calculare level echipa in functie de exp castigat*/
+execute random_completare_main_quests;
+select *
+  from main_quest;
+
+
+
 create or replace function calculare_level (
    experience integer
 ) return integer as
@@ -28,7 +39,7 @@ begin
    return lvl;
 end;
 
-/*procedura care imi creeaza coloanele de exp si coins in tabela de charcater party si verifica daca ele exisdta deja*/
+execute validare_coloane_exp_coins_echipe;
 create or replace procedure validare_coloane_exp_coins_echipe as
    validare_exp_column   integer;
    validare_coins_column integer;
@@ -37,7 +48,6 @@ create or replace procedure validare_coloane_exp_coins_echipe as
    no_coins_column exception;
    no_lvl_column exception;
 begin
-/*verific daca exista coloanad e exp echipa in cadrul tabelei de character party:)*/
    select count(*)
      into validare_exp_column
      from all_tab_columns
@@ -47,8 +57,6 @@ begin
    if ( validare_exp_column = 0 ) then
       raise no_exp_column;
    else
-    /*verific pentru coloaan de coins*/
-
       select count(*)
         into validare_coins_column
         from all_tab_columns
@@ -58,7 +66,6 @@ begin
       if ( validare_coins_column = 0 ) then
          raise no_coins_column;
       else
-      /*verific pentru coloana de lvl echipa */
          select count(*)
            into validare_lvl_column
            from all_tab_columns
@@ -141,7 +148,7 @@ select *
 --  group by cp.id_party;
 
 
-/*procedura care calculeaza coins, le baga intr o sturctura de date si apoi le baga in tabel una cate una */
+
 create or replace procedure calculare_coins_echipa as
    type coins_array is
       table of integer index by pls_integer;
@@ -194,7 +201,7 @@ select *
 --  group by cp.id_party;
 
 
-/*procedura care calculeaza lvl echipei */
+
 
 create or replace procedure lvl_procedure as
    cursor c is
@@ -225,6 +232,8 @@ drop procedure calculare_exp_echipa;
 drop procedure calculare_coins_echipa;
 drop procedure lvl_procedure;
 
+drop package team_progression_package;
+
 create or replace package team_progression_package as
    procedure random_completare_main_quests;
    procedure validare_coloane_exp_coins_echipe;
@@ -235,6 +244,7 @@ create or replace package team_progression_package as
       experience integer
    ) return integer;
 end team_progression_package;
+/
 
 create or replace package body team_progression_package is
 
@@ -243,9 +253,9 @@ create or replace package body team_progression_package is
    begin
       update main_quest
          set
-         main_quest_status = round(dbms_random.value(
+         main_quest_status = trunc(dbms_random.value(
             0,
-            1
+            2
          ));
    end;
 
@@ -419,11 +429,13 @@ create or replace package body team_progression_package is
 end team_progression_package;
 
 execute team_progression_package.random_completare_main_quests;
+commit;
+select main_quest_status
+  from main_quest;
 execute team_progression_package.validare_coloane_exp_coins_echipe;
 execute team_progression_package.calculare_exp_echipa;
 execute team_progression_package.calculare_coins_echipa;
 execute team_progression_package.lvl_procedure;
 
-commit;
 select *
   from character_party;
