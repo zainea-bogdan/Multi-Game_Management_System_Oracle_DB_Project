@@ -61,7 +61,7 @@ First of all, let's checkout the database design diagrams.
 > - After verifying functionality's procedures and function separately, I dropped and re-created them in a package for reuse and organization.
 >   -!!! Important: first of all run at least once the first procedure before creating the package cause otherwise, it won't work
 
-- Source code: `PlSQL+SQL_micro-functionalities\Functionality_01_Difficulty_column_and_generating_random_exp_coins.sql`
+- Source code: [click here](PlSQL+SQL_micro-functionalities\Functionality_01_Difficulty_column_and_generating_random_exp_coins.sql)
 
 - <details>
     <summary>Expected Results:</summary>
@@ -69,4 +69,31 @@ First of all, let's checkout the database design diagrams.
     <img src="Media_Functionalities_Results_PLSQL/difficulty_column_gen.png" alt="" width="600">
     <img src="Media_Functionalities_Results_PLSQL/random_values_for_difficulty.png" alt="" width="600">
     <img src="Media_Functionalities_Results_PLSQL/running_through_pkg_exp_coin_lvl_gen.png" alt="" width="600">
+  </details>
+
+### **Functionality #2: Setting completion status of main quest and calculates coin rewards,experience and level for each team**
+
+> **Task description:**  
+> Core concept: Building a package of procedures and functions that perform the following:
+>
+> - A procedure that updates the mission status column to mark quests as completed (1) or incomplete (0), randomly.
+> - A procedure that verifies and creates (if necessary) three columns in the `character_party` table:
+>   1. `exp_echipa` (team experience)
+>   2. `coins_echipa` (team coins)
+>   3. `lvl_echipa` (team level), which is calculated based on total experience.
+> - A procedure that calculates experience per team, stores results in an indexed table, and updates the database accordingly.
+> - A similar procedure that calculates and stores coin rewards per team.
+> - A function that calculates the team level based on the total experience.
+> - Finally, all logic is encapsulated into a package for reuse and modularity.
+> - !! Important make sure you went at least once throguh the functionality 1 in order to be able to work with this one, just to be sure :)
+> - VERY IMPORTANT FIRST OF ALL RUN THE FIRST 2 PROCEDURE INDEPENDENTLY TO GET THE COLUMNS AND THAT RANDOM VALUES, ONLY AFTER THAT DROP THE SPECIFIC PROCEDURES AND BUILD THE PACKAGE
+
+- Source code: [click here](PlSQL+SQL_micro-functionalities\Functionality_02_Setting_completion_status_calculate_team_exp_coins_lvl.sql)
+
+- <details>
+    <summary>Expected Results:</summary>
+    <br>
+    <img src="Media_Functionalities_Results_PLSQL/random_completion_status.png" alt="" width="600">
+    <img src="Media_Functionalities_Results_PLSQL/creating the column for exp coins and lvl.png" alt="" width="600">
+    <img src="Media_Functionalities_Results_PLSQL/calculation fo exp lvl and coins teams.png" alt="" width="600">
   </details>
