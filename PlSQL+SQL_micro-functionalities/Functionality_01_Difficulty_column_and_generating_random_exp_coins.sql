@@ -1,9 +1,10 @@
 /* Functionality#1 */
 /* Core concept: Building a package of procedures and functions that perform the following:
    - A procedure that creates a "difficulty" column for main quests (if not already present) and assigns random difficulty values.
-   - A procedure that randomly assigns experience points to the team based on a formula that factors in quest difficulty and region.
-   - A procedure that randomly assigns coin rewards to the team using a similar formula.
+   - A procedure that  assigns experience points to the team based on a formula that factors in quest difficulty and region.
+   - A procedure that  assigns coin rewards to the team using a similar formula.
    - A procedure that calls the above three procedures and displays the results.
+   - A function  that calculates the value for experience/coins based on the difficulty and region formula from above.
    - After verifying functionality separately, drop and re-create them in a package for reuse and organization.
 */
 
