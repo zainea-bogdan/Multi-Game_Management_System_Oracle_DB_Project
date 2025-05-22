@@ -153,6 +153,11 @@ drop procedure generare_random_reward_coins;
 drop procedure generare_si_afisare_exp_reward_dificultate;
 drop function formula_calc_based_on_dificulatate_si_regiune;
 
+
+drop package generating_random_dificulty_experience_rewards_per_main_quest;
+
+
+
 /* Creating the package containing all previously defined logic */
 create or replace package generating_random_dificulty_experience_rewards_per_main_quest as
    procedure validare_existenta_coloana_dificultate_si_alocare_valori;
@@ -163,7 +168,7 @@ create or replace package generating_random_dificulty_experience_rewards_per_mai
       dificultate integer,
       id_region   integer
    ) return integer;
-end;
+end generating_random_dificulty_experience_rewards_per_main_quest;
 
 create or replace package body generating_random_dificulty_experience_rewards_per_main_quest is
 
@@ -282,12 +287,14 @@ create or replace package body generating_random_dificulty_experience_rewards_pe
       return valoare;
    end;
 
-end;
+end generating_random_dificulty_experience_rewards_per_main_quest;
 
--- Execute one of the procedures from the package to test
-execute generating_random_dificulty_experience_rewards_per_main_quest.generare_random_experience;
-commit;
-
--- View the results
-select *
+/*running at least once the first procedure to get difficulty column and then compile the package body*/
+execute validare_existenta_coloana_dificultate_si_alocare_valori;
+select dificultate
   from main_quest;
+
+/*random values*/
+execute generating_random_dificulty_experience_rewards_per_main_quest.generare_si_afisare_exp_reward_dificultate;
+
+commit;

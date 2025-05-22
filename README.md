@@ -6,7 +6,7 @@ This project is a relational database designed to manage data for a game company
 
 ## **Motivation behind this project idea:**
 
-This project was born out of a personal interest for creating a practical and cost-effective database solution tailored for small to medium-sized game studios. More precisely, these companies have in common the tendency to develop games, that share common structural features, such as player accounts, guilds system, maine & side quests, inventory systems, and many more.
+The main idea for this project was born out of a personal interest for creating a practical and cost-effective database solution tailored for small to medium-sized game studios. More precisely, these companies have in common the tendency to develop games, that share common structural features, such as player accounts, guilds system, maine & side quests, inventory systems, and many more.
 
 By designing a reusable and adaptable relational database that addresses these shared needs, I aim to provide a foundation that can accelerate development and ensure consistent data management.
 
@@ -58,12 +58,15 @@ First of all, let's checkout the database design diagrams.
 > - A procedure that assigns coin rewards to the team using a similar formula.
 > - A procedure that calls the above three procedures and displays the results.
 > - A function that calculates the value for experience/coins based on the difficulty and region formula from above.
-> - After verifying functionality separately, drop and re-create them in a package for reuse and organization.
+> - After verifying functionality's procedures and function separately, I dropped and re-created them in a package for reuse and organization.
+>   -!!! Important: first of all run at least once the first procedure before creating the package cause otherwise, it won't work
 
 - Source code: `PlSQL+SQL_micro-functionalities\Functionality_01_Difficulty_column_and_generating_random_exp_coins.sql`
 
 - <details>
-  <summary>Results:</summary>
-  <br>
-  This is how you dropdown.
+    <summary>Expected Results:</summary>
+    <br>
+    <img src="Media_Functionalities_Results_PLSQL/difficulty_column_gen.png" alt="" width="300">
+    <img src="Media_Functionalities_Results_PLSQL/random_values_for_difficulty.png" alt="" width="300">
+    <img src="Media_Functionalities_Results_PLSQL/running_through_pkg_exp_coin_lvl_gen.png" alt="" width="300">
   </details>
