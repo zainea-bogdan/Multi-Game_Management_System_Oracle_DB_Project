@@ -29,7 +29,7 @@ exception
       dbms_output.put_line('S-a creat coloana de taxes_collected. NOICE! :) ');
 end;
 
--- execute validare_coloana_guild_taxes_collected_total;
+execute validare_coloana_guild_taxes_collected_total;
 
 
 /*procedura care imi verifica guyild misiunilor compeltate de toate echipe si aplicarea guild taxes daca este cazulCALCUL_VECHIME*/
@@ -81,7 +81,13 @@ exception
       v_guild_tax := 0;
 end;
 
+execute COLECTARE_TAXE_DACA_E_CAZUL;
 
+select taxes_collected_total
+  from guild;
+
+select coins_echipa
+  from character_party;
 /*versiunea cu package*/
 
    set SERVEROUTPUT on;
@@ -90,6 +96,7 @@ end;
 drop procedure validare_coloana_guild_taxes_collected_total;
 drop procedure colectare_taxe_daca_e_cazul;
 
+drop package guild_tax_package;
 
 
 create or replace package guild_tax_package as
