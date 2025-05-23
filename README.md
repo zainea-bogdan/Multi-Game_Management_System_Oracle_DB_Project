@@ -199,3 +199,10 @@ First of all, let's checkout the database design diagrams.
 > requirement. If not, the quest is automatically invalidated.
 
 - Source code: [click here](PlSQL+SQL_micro-functionalities/Functionalities_Triggers.sql)
+
+- <details>
+    <summary>Expected Results:</summary>
+    <br>
+    <img src="Media_Functionalities_Results_PLSQL/BEFORE TRIGGER ITEM VALIDATION.png" alt="" width="600">
+    <img src="Media_Functionalities_Results_PLSQL/POST TRIGGER item validation.png" alt="" width="600">
+  </details>
