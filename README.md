@@ -116,6 +116,8 @@ First of all, let's checkout the database design diagrams.
     <img src="Media_Functionalities_Results_PLSQL/calculation fo exp lvl and coins teams.png" alt="" width="600">
   </details>
 
+---
+
 ### **Functionality #3: Setting minimum level requirement for each main quest and check if the teams respect it**
 
 > **Task description:**  
@@ -137,6 +139,8 @@ First of all, let's checkout the database design diagrams.
     <img src="Media_Functionalities_Results_PLSQL/setting min lvl for each main quest.png" alt="" width="900">
     <img src="Media_Functionalities_Results_PLSQL/debifare mis min lvl check.png" alt="" width="600">
   </details>
+
+---
 
 ### **Functionality #4: Creating a `taxes_collected_total` Column and apply guild taxes accordingly**
 
