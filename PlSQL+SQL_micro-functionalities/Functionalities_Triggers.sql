@@ -32,6 +32,8 @@ begin
          :new.item_available_3 := null;
       end if;
    end if;
+
+   dbms_output.put_line('TRIGGGEEERRR ONNNNNN');
 end;
 
 drop trigger trigger_validare_clasa_inventory
@@ -48,6 +50,7 @@ begin
    team_progression_package.calculare_exp_echipa;
    team_progression_package.calculare_coins_echipa;
    team_progression_package.lvl_procedure;
+   dbms_output.put_line('TRIGGGEEERRR ONNNNNN');
 end;
 /
 
@@ -66,4 +69,5 @@ begin
    quest_min_level_validation_pkg.debifare_misiune_daca_nu_echipa_lvl_min;
 end;
 /
+
 drop trigger trigger_validare_min_lvl_main_quest;
