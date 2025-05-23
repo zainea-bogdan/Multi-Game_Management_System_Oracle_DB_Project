@@ -13,6 +13,7 @@
    - [Functionality #2: Completion Status and Team Rewards](#functionality-2-setting-completion-status-of-main-quest-and-calculates-coin-rewardsexperience-and-level-for-each-team)
    - [Functionality #3: Minimum Level Requirement and Validation](#functionality-3-setting-minimum-level-requirement-for-each-main-quest-and-check-if-the-teams-respect-it)
    - [Functionality #4: Guild Taxation System](#functionality-4-creating-a-taxes_collected_total-column-and-apply-guild-taxes-accordingly)
+   - [Functionality #5: Allocated Random Items for Each Inventory's Slot and Nullify the Incompatible Ones](#functionality-5-allocated-random-items-for-each-inventorys-slot-and-nullify-the-incompatible-ones)
 
 ## **Project overview**
 
