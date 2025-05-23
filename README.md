@@ -1,5 +1,17 @@
 # Multi-Game_Management_System_Oracle_DB_Project
 
+## **Table of Contents:**
+
+1. [Project Overview](#project-overview)
+2. [Motivation Behind This Project Idea](#motivation-behind-this-project-idea)
+3. [Database Design Diagrams](#database-design-diagrams)
+4. [Technologies Used](#technologies-used)
+5. [Prerequisites](#prerequisites)
+6. [Steps for Creating Database Tables and Loading Mock Data](#steps-for-creating-database-tables-and-loading-mock-data)
+7. [Micro-Functionalities](#functionalities)
+   - [Functionality #1: Add Difficulty Column and Assign Rewards](#functionality-1-add-difficulty-column-and-assign-experience-and-coin-rewards-based-on-region-and-difficulty-for-each-main-quest)
+   - [Functionality #2: Completion Status and Team Rewards](#functionality-2-setting-completion-status-of-main-quest-and-calculates-coin-rewardsexperience-and-level-for-each-team)
+
 ## **Project overview**
 
 This project is a relational database designed to manage data for a game company with multiple games that share a similar structure. The database supports key game elements such as player accounts, guilds, main and side quests, an inventory/shop system and other addional elements, while allowing for future scalability and feature expansion.
@@ -87,8 +99,8 @@ First of all, let's checkout the database design diagrams.
 > - A similar procedure that calculates and stores coin rewards per team.
 > - A function that calculates the team level based on the total experience.
 > - Finally, all logic is encapsulated into a package for reuse and modularity.
-> - !! Important make sure you went at least once throguh the functionality 1 in order to be able to work with this one, just to be sure :)
-> - VERY IMPORTANT FIRST OF ALL RUN THE FIRST 2 PROCEDURE INDEPENDENTLY TO GET THE COLUMNS AND THAT RANDOM VALUES, ONLY AFTER THAT DROP THE SPECIFIC PROCEDURES AND BUILD THE PACKAGE
+> - Before proceeding, ensure Functionality #1 has been run at least once, as this functionality somehow depends on columns and values created earlier.
+> - After verifying the first two procedures work independently, drop them and recreate their logic inside the package for modularity and reuse (more precisely after running the first 2 procedure you can create the package afterwards).
 
 - Source code: [click here](PlSQL+SQL_micro-functionalities/Functionality_02_Setting_completion_status_calculate_team_exp_coins_lvl.sql)
 
@@ -98,4 +110,26 @@ First of all, let's checkout the database design diagrams.
     <img src="Media_Functionalities_Results_PLSQL/random_completion_status.png" alt="" width="600">
     <img src="Media_Functionalities_Results_PLSQL/creating the column for exp coins and lvl.png" alt="" width="600">
     <img src="Media_Functionalities_Results_PLSQL/calculation fo exp lvl and coins teams.png" alt="" width="600">
+  </details>
+
+### **Functionality #3: Setting minimum level requirement for each main quest and check if the teams respect it**
+
+> **Task description:**  
+> Core concept: Ensure that main quests enforce a minimum level requirement for teams, by building a package of procedures that perform the following:
+>
+> - A procedure that calculates and assigns a minimum level to each quest, based on the current average team level.
+> - A procedure checks if any team completed a quest without meeting the required level. If so:
+>   - The quest completion is revoked.
+>   - Half of the quest's coin reward is deducted from the team's total coins.
+> - After revoking quest completions, it is recommended to re-run the relevant procedures from the package defined in Functionality #2's package, such as:
+>   - `EXECUTE team_progression_package.calculare_exp_echipa;`
+>   - `EXECUTE team_progression_package.lvl_procedure;`
+> - This ensures that team experience and levels are recalculated correctly, especially since penalizing coin rewards may also affect progression logic.
+
+- Source code: [click here](PlSQL+SQL_micro-functionalities/Functionality_03_Setting_minimum_lvl_requirment_and_check_teams_integrity.sql)
+- <details>
+    <summary>Expected Results:</summary>
+    <br>
+    <img src="Media_Functionalities_Results_PLSQL/setting min lvl for each main quest.png" alt="" width="900">
+    <img src="Media_Functionalities_Results_PLSQL/debifare mis min lvl check.png" alt="" width="600">
   </details>
