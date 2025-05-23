@@ -437,5 +437,6 @@ execute team_progression_package.calculare_exp_echipa;
 execute team_progression_package.calculare_coins_echipa;
 execute team_progression_package.lvl_procedure;
 
+
 select *
   from character_party;

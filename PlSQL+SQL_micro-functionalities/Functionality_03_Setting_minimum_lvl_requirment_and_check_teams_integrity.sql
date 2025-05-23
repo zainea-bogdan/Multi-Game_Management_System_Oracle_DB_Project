@@ -1,10 +1,9 @@
 /* Functionality #3 */
-/* Core concept: Ensure that main quests enforce a minimum level requirement for teams. If the requirement isn't met:
-   - A procedure calculates and assigns a minimum level to each quest, based on the current average team level.
-   - A procedure checks if any team completed a quest without meeting the required level.
-     If so:
-       - The quest completion is revoked.
-       - Half of the quest's coin reward is deducted from the team's total coins.
+/*  Core concept: Ensure that main quests enforce a minimum level requirement for teams, by building a package of procedures that perform the following:
+ - A procedure that calculates and assigns a minimum level to each quest, based on the current average team level.
+ - A procedure checks if any team completed a quest without meeting the required level. If so:
+      - The quest completion is revoked.
+      - Half of the quest's coin reward is deducted from the team's total coins.
 */
 
 create or replace procedure generate_min_lvl_main_quest as
@@ -100,6 +99,7 @@ commit;
 drop procedure generate_min_lvl_main_quest;
 drop procedure debifare_misiune_daca_nu_echipa_lvl_min;
 
+drop package quest_min_level_validation_pkg;
 
 create or replace package quest_min_level_validation_pkg as
    procedure generate_min_lvl_main_quest;
