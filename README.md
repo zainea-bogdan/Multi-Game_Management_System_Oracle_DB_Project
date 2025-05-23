@@ -177,3 +177,24 @@ First of all, let's checkout the database design diagrams.
     <img src="Media_Functionalities_Results_PLSQL/gen random item available.png" alt="" width="600">
     <img src="Media_Functionalities_Results_PLSQL/nullifying incorrect items from each slot.png" alt="" width="600">
   </details>
+
+### **Automating some procedures from above - Triggers**
+
+> **Task description:**
+>
+> For Functionality 5:
+> Ensures that each item assigned to an inventory slot (1–3) matches the class
+> of the character who owns the inventory. If there is a mismatch, the item is
+> automatically removed (set to NULL) before the insert or update is committed.
+>
+> For Functionality 2:
+> Automatically recalculates the level of each team (party) whenever any
+> update is made to the main_quest table. It calls the level calculation
+> procedure from the team progression package after the update.
+>
+> For Functionality 3:
+> After updating the `main_quest_status`, this trigger ensures that the quest
+> remains valid for the team by checking if the team meets the minimum level
+> requirement. If not, the quest is automatically invalidated.
+
+- Source code: [click here](PlSQL+SQL_micro-functionalities/Functionalities_Triggers.sql)

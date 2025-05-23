@@ -3,12 +3,31 @@
  - A procedure that populates item slots 1–3 with random items.(the columns `item_available_1 to 3`)
  - Functions to retrieve player and item class IDs.
  - A procedure to validate item-class compatibility and nullify mismatched items.
+ - Note first of all drop this constrain:
+   - `alter table inventory drop constraint chk_equipped_item;`
 */
 
 
    SET SERVEROUTPUT ON;
 
 
+create or replace function random_gen_item_id return number is
+   v_max number;
+   v_min number;
+begin
+   select max(id_item),
+          min(id_item)
+     into
+      v_max,
+      v_min
+     from item;
+
+   return dbms_random.value(
+      v_min,
+      v_max
+   );
+end;
+/
 create or replace procedure random_generating_items_in_player_inventory as
 begin
    update inventory
@@ -26,23 +45,6 @@ end;
 EXECUTE random_generating_items_in_player_inventory;
 
 
-create or replace function random_gen_item_id return number is
-   v_max number;
-   v_min number;
-begin
-   select max(id_item),
-          min(id_item)
-     into
-      v_max,
-      v_min
-     from item;
-
-   return dbms_random.value(
-      v_min,
-      v_max + 1
-   );
-end;
-/
 
 
 create or replace function get_player_class (
@@ -119,14 +121,14 @@ drop function random_gen_item_id;
 drop function get_player_class;
 drop function get_charact_id_from_item_class;
 drop procedure check_item_class_restriction;
-
+alter table inventory drop constraint chk_equipped_item;
 
 drop package inventory_package;
 
 
 create or replace package inventory_package as
-   procedure random_generating_items_in_player_inventory;
    function random_gen_item_id return number;
+   procedure random_generating_items_in_player_inventory;
    function get_player_class (
       p_id_inventory caracter.id_inventory%type
    ) return integer;
@@ -138,19 +140,6 @@ end inventory_package;
 /
 
 create or replace package body inventory_package as
-
-   procedure random_generating_items_in_player_inventory as
-   begin
-      update inventory
-         set
-         item_equipped = null;
-
-      update inventory
-         set item_available_1 = random_gen_item_id,
-             item_available_2 = random_gen_item_id,
-             item_available_3 = random_gen_item_id;
-   end;
-
    function random_gen_item_id return number is
       v_max number;
       v_min number;
@@ -164,9 +153,22 @@ create or replace package body inventory_package as
 
       return dbms_random.value(
          v_min,
-         v_max + 1
+         v_max
       );
    end;
+   procedure random_generating_items_in_player_inventory as
+   begin
+      update inventory
+         set
+         item_equipped = null;
+
+      update inventory
+         set item_available_1 = random_gen_item_id,
+             item_available_2 = random_gen_item_id,
+             item_available_3 = random_gen_item_id;
+   end;
+
+
 
    function get_player_class (
       p_id_inventory caracter.id_inventory%type
