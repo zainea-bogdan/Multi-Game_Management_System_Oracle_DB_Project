@@ -2,8 +2,6 @@
 
 ## **Table of Contents:**
 
-## **Table of Contents:**
-
 1. [Project Overview](#project-overview)
 2. [Motivation Behind This Project Idea](#motivation-behind-this-project-idea)
 3. [Database Design Diagrams](#database-design-diagrams)
@@ -15,6 +13,7 @@
    - [Functionality #2: Completion Status and Team Rewards](#functionality-2-setting-completion-status-of-main-quest-and-calculates-coin-rewardsexperience-and-level-for-each-team)
    - [Functionality #3: Minimum Level Requirement and Validation](#functionality-3-setting-minimum-level-requirement-for-each-main-quest-and-check-if-the-teams-respect-it)
    - [Functionality #4: Guild Taxation System](#functionality-4-creating-a-taxes_collected_total-column-and-apply-guild-taxes-accordingly)
+   - [Functionality #5: Allocated Random Items for Each Inventory's Slot and Nullify the Incompatible Ones](#functionality-5-allocated-random-items-for-each-inventorys-slot-and-nullify-the-incompatible-ones)
 
 ## **Project overview**
 
@@ -157,4 +156,24 @@ First of all, let's checkout the database design diagrams.
     <br>
     <img src="Media_Functionalities_Results_PLSQL/creating guidl taxes column.png" alt="" width="600">
     <img src="Media_Functionalities_Results_PLSQL/applying guild taxes.png" alt="" width="900">
+  </details>
+
+  ***
+
+### **Functionality #5: Allocated Random items for each inventory's slot and Nullify the incompatible ones**
+
+> **Task description:**  
+> Core concept: Randomize item allocation in player inventories and ensure items match the character's class. Create a package with the following procedures and functions:
+>
+> - A procedure that populates item slots 1–3 with random items.(the columns `item_available_1 to 3`)
+> - Functions to retrieve player and item class IDs.
+> - A procedure to validate item-class compatibility and nullify mismatched items.
+
+- Source code: [click here](PlSQL+SQL_micro-functionalities/Functionality_05_Setting_Random_items_in_each_slot_Nullify_the_invalid_ones.sql)
+
+- <details>
+    <summary>Expected Results:</summary>
+    <br>
+    <img src="Media_Functionalities_Results_PLSQL/gen random item available.png" alt="" width="600">
+    <img src="Media_Functionalities_Results_PLSQL/nullifying incorrect items from each slot.png" alt="" width="600">
   </details>

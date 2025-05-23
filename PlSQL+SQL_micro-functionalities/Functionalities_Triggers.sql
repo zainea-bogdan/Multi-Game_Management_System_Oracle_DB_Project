@@ -34,7 +34,7 @@ begin
    end if;
 end;
 
-
+drop trigger trigger_validare_clasa_inventory
 /* 
    For Functionality 2:
    Automatically recalculates the level of each team (party) whenever any 
@@ -51,6 +51,7 @@ begin
 end;
 /
 
+drop trigger trigger_recalculare_lvl_echipe;
 
 /* 
    For Functionality 3:
@@ -65,3 +66,4 @@ begin
    quest_min_level_validation_pkg.debifare_misiune_daca_nu_echipa_lvl_min;
 end;
 /
+drop trigger trigger_validare_min_lvl_main_quest;
