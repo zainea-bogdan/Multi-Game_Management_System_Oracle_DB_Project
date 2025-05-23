@@ -2,6 +2,8 @@
 
 ## **Table of Contents:**
 
+## **Table of Contents:**
+
 1. [Project Overview](#project-overview)
 2. [Motivation Behind This Project Idea](#motivation-behind-this-project-idea)
 3. [Database Design Diagrams](#database-design-diagrams)
@@ -11,6 +13,8 @@
 7. [Micro-Functionalities](#functionalities)
    - [Functionality #1: Add Difficulty Column and Assign Rewards](#functionality-1-add-difficulty-column-and-assign-experience-and-coin-rewards-based-on-region-and-difficulty-for-each-main-quest)
    - [Functionality #2: Completion Status and Team Rewards](#functionality-2-setting-completion-status-of-main-quest-and-calculates-coin-rewardsexperience-and-level-for-each-team)
+   - [Functionality #3: Minimum Level Requirement and Validation](#functionality-3-setting-minimum-level-requirement-for-each-main-quest-and-check-if-the-teams-respect-it)
+   - [Functionality #4: Guild Taxation System](#functionality-4-creating-a-taxes_collected_total-column-and-apply-guild-taxes-accordingly)
 
 ## **Project overview**
 
