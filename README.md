@@ -133,3 +133,20 @@ First of all, let's checkout the database design diagrams.
     <img src="Media_Functionalities_Results_PLSQL/setting min lvl for each main quest.png" alt="" width="900">
     <img src="Media_Functionalities_Results_PLSQL/debifare mis min lvl check.png" alt="" width="600">
   </details>
+
+### **Functionality #4: Creating a `taxes_collected_total` Column and apply guild taxes accordingly**
+
+> **Task description:**  
+> Core concept: Apply and collect guild taxes for completed quests. Create the following procedures and include them in a package
+>
+> - A procedure to ensure the `taxes_collected_total` column exists in the `guild` table.
+> - A procedure that calculates and applies guild taxes for completed quests, where the quest's guild is different from the team's origin guild.
+
+- Source code: [click here](PlSQL+SQL_micro-functionalities/Functionality_04_Creating_Collected_Taxes_Column_and_apply_guild_taxes.sql)
+
+- <details>
+    <summary>Expected Results:</summary>
+    <br>
+    <img src="Media_Functionalities_Results_PLSQL/creating guidl taxes column.png" alt="" width="600">
+    <img src="Media_Functionalities_Results_PLSQL/applying guild taxes.png" alt="" width="900">
+  </details>
