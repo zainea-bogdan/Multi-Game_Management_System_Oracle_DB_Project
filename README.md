@@ -1,5 +1,10 @@
 # Multi-Game_Management_System_Oracle_DB_Project
 
+![Oracle](https://img.shields.io/badge/Oracle-F80000?style=for-the-badge&logo=oracle&logoColor=white)
+![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
+
 ## **Table of Contents:**
 
 1. [Project Overview](#project-overview)
@@ -15,6 +20,7 @@
    - [Functionality #4: Guild Taxation System](#functionality-4-creating-a-taxes_collected_total-column-and-apply-guild-taxes-accordingly)
    - [Functionality #5: Allocated Random Items for Each Inventory's Slot and Nullify the Incompatible Ones](#functionality-5-allocated-random-items-for-each-inventorys-slot-and-nullify-the-incompatible-ones)
    - [Triggers - Automating some procedures](#automating-some-procedures-from-above---triggers)
+8. [Oracle APEX Integration - Interactive Region-to-Guild Map](#oracle-apex-integration---interactive-region-to-guild-map)
 
 ## **Project overview**
 
@@ -206,3 +212,31 @@ First of all, let's checkout the database design diagrams.
     <img src="Media_Functionalities_Results_PLSQL/BEFORE TRIGGER ITEM VALIDATION.png" alt="" width="600">
     <img src="Media_Functionalities_Results_PLSQL/POST TRIGGER item validation.png" alt="" width="600">
   </details>
+
+## **Oracle APEX Integration - Interactive Region-to-Guild Map**
+
+> **Task description:**
+>
+> This functionality displays an interactive fantasy-style map for the game 100, called `Fantasy_RPG`, that features 3 regions.
+> When a user clicks on a region:
+>
+> - The region description is dynamically shown.
+> - All guilds belonging to that region are rendered below in styled parchment-like cards.
+> - All data is fetched in a single JSON object at page load and handled locally in the frontend.
+>
+> The application uses:
+>
+> - One APEX page with a static map image and region buttons
+> - One PL/SQL callback (`loadAllRegionsAndGuilds`) for preloading data
+> - JavaScript event listeners to filter and render data locally
+> - Modern CSS styling to match a medieval/fantasy theme
+
+- Source code: [click here](./Apex%20Region%20Guild%20Interface/apex%20sql%20code%20for%20apex.sql)
+
+<details>
+  <summary>Expected Results:</summary>
+  <br>
+  <img src="./Media_Functionalities_Results_PLSQL/tundra apex.png" alt="" width="600">
+  <img src="./Media_Functionalities_Results_PLSQL/wastes apex.png" alt="" width="600">
+  <img src="./Media_Functionalities_Results_PLSQL/verede apex.png" alt="guild cards" width="600">
+</details>
