@@ -247,4 +247,9 @@ First of all, let's checkout the database design diagrams.
   <img src="./Media_Functionalities_Results_PLSQL/tundra apex.png" alt="" width="600">
   <img src="./Media_Functionalities_Results_PLSQL/wastes apex.png" alt="" width="600">
   <img src="./Media_Functionalities_Results_PLSQL/verede apex.png" alt="guild cards" width="600">
+
+  <video width="560" height="315" controls>
+    <source src="./Apex Region Guild Interface/apex.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
 </details>
